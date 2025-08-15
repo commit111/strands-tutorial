@@ -1,0 +1,26 @@
+services:
+  app:
+    extends:
+      file: compose.yaml
+      service: app
+    environment:
+       - AWS_REGION=us-west-2 # replace with your AWS region
+       - AWS_PROFILE=defang-lab # replace with your AWS profile name
+    volumes:
+      - ./app:/app
+      - type: bind
+        source: ~/.aws
+        target: /root/.aws
+        
+  llm:
+    extends:
+      file: compose.yaml
+      service: llm
+    # if using AWS Bedrock for local development, include this section:
+    environment:
+      - AWS_REGION=us-west-2 # replace with your AWS region
+      - AWS_PROFILE=defang-lab # replace with your AWS profile name
+    volumes:
+      - type: bind
+        source: ~/.aws
+        target: /root/.aws
