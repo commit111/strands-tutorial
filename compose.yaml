@@ -6,12 +6,12 @@ services:
       context: ./app
       dockerfile: Dockerfile
     ports:
-      - target: 3000
-        published: 3000
+      - target: 5000
+        published: 5000
         mode: ingress
     environment:
       LLM_URL: http://llm/api/v1/
-      LLM_MODEL: default
+      LLM_MODEL: ai/claude3-haiku
       OPENAI_API_KEY: FAKE_TOKEN
     depends_on:
       - llm
@@ -19,6 +19,7 @@ services:
   llm:
     environment:
       - OPENAI_API_KEY=FAKE_TOKEN
+      - DEBUG=true
     image: defangio/openai-access-gateway:latest
     ports:
       - target: 80

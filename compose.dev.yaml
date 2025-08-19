@@ -3,6 +3,10 @@ services:
     extends:
       file: compose.yaml
       service: app
+    ports:
+      - target: 5000
+        published: 5000
+        mode: ingress
     environment:
        - AWS_REGION=us-west-2 # replace with your AWS region
        - AWS_PROFILE=defang-lab # replace with your AWS profile name
@@ -11,7 +15,7 @@ services:
       - type: bind
         source: ~/.aws
         target: /root/.aws
-        
+
   llm:
     extends:
       file: compose.yaml
