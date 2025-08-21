@@ -86,7 +86,7 @@
                 function addMessage(text, isUser = false) {
                     const messageDiv = document.createElement('div');
                     messageDiv.className = `message ${isUser ? 'user-message' : 'agent-message'}`;
-                    messageDiv.textContent = text;
+                    messageDiv.innerHTML = text;
                     chatContainer.appendChild(messageDiv);
                     chatContainer.scrollTop = chatContainer.scrollHeight;
                 }
@@ -119,8 +119,10 @@
                         // Remove loading indicator
                         chatContainer.removeChild(loadingDiv);
                         
+                        const agentResponse = data.response.replace(/\n/g, '<br>');
                         // Display the agent's response
-                        addMessage(data.response, false);
+                        addMessage(agentResponse, false);
+
                     } catch (error) {
                         console.error('Error:', error);
                         // Remove loading indicator and show error
